@@ -63,6 +63,9 @@ func commandHandler(s *discordgo.Session, m *discordgo.MessageCreate) {
 	}
 
 	log.Println(m.Content)
+
+	// echo user
+	_, _ = s.ChannelMessageSend(m.ChannelID, m.Content)
 	//log.Println(m.Author)
 	//log.Println(m.ChannelID)
 	//log.Println(m.Message)
