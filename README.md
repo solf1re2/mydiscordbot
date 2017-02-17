@@ -1,6 +1,7 @@
 # mydiscordbot
 
 From: https://discordapp.com/developers/applications/me
+
 Adding Bots to Guilds
 A URL can be generated that redirects authenticated users to the add-bot flow, by using the following format (this utilizes the OAuth2 authentication flow, without a callback URL):
 ```
