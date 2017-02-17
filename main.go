@@ -1,17 +1,20 @@
 package main
 
 import (
-"flag"
-"github.com/bwmarrin/discordgo"
-"fmt"
+	"flag"
+	"fmt"
 	"log"
-)
 
+	"github.com/bwmarrin/discordgo"
+	"golang.org/x/text/message"
+	"strings"
+	"github.com/astaxie/beego/cache"
+)
 
 // Variables used for command line parameters
 var (
-	Token string
-	BotID string
+	Token   string
+	BotID   string
 )
 
 func init() {
@@ -20,6 +23,7 @@ func init() {
 	flag.Parse()
 }
 
+// launch the discord bot
 func main() {
 
 	// Create a new Discord session using the provided bot token.
@@ -41,6 +45,8 @@ func main() {
 	// Register messageCreate as a callback for the messageCreate events.
 	//dg.AddHandler(messageCreate)
 	dg.AddHandler(commandHandler)
+	dg.AddHandler(botInit)
+
 	// Open the websocket and begin listening.
 	err = dg.Open()
 	if err != nil {
@@ -54,6 +60,10 @@ func main() {
 	return
 }
 
+// bot setup once the bot is created.
+func botInit(s *discordgo.Session, m *discordgo.MessageCreate) {
+}
+
 // This function will be called (due to AddHandler above) every time a new
 // message is created on any channel that the authenticated bot has access to.
 func commandHandler(s *discordgo.Session, m *discordgo.MessageCreate) {
@@ -62,7 +72,18 @@ func commandHandler(s *discordgo.Session, m *discordgo.MessageCreate) {
 		return
 	}
 
+	// resolve the channel
+	// handle private messages - ignore?
+
 	log.Println(m.Content)
+
+	// check for ! at start of line for command input
+
+	// check for @ and username for mention of bot.
+	if len(m.Mentions) > 0 && strings.HasPrefix(m.Content, "<@") && m.Mentions[0].ID == s.State.User.ID {
+		// message is talking to us. What do we do?
+
+	}
 
 	// echo user
 	_, _ = s.ChannelMessageSend(m.ChannelID, m.Content)
