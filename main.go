@@ -6,9 +6,7 @@ import (
 	"log"
 
 	"github.com/bwmarrin/discordgo"
-	"golang.org/x/text/message"
 	"strings"
-	"github.com/astaxie/beego/cache"
 )
 
 // Variables used for command line parameters
