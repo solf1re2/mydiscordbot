@@ -7,6 +7,8 @@ A URL can be generated that redirects authenticated users to the add-bot flow, b
 ```
 https://discordapp.com/api/oauth2/authorize?client_id=157730590492196864&scope=bot&permissions=0
 ```
+replace 157730590492196864 with your bots client id.
+
 client_id is your bot application's ID and permissions is an integer following the permissions format.
 
 ## Commands:
