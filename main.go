@@ -5,14 +5,15 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/bwmarrin/discordgo"
 	"strings"
+
+	"github.com/bwmarrin/discordgo"
 )
 
 // Variables used for command line parameters
 var (
-	Token   string
-	BotID   string
+	Token string
+	BotID string
 )
 
 func init() {
@@ -44,6 +45,7 @@ func main() {
 	//dg.AddHandler(messageCreate)
 	dg.AddHandler(commandHandler)
 	dg.AddHandler(botInit)
+	dg.AddHandler(welcomeMessage)
 
 	// Open the websocket and begin listening.
 	err = dg.Open()
@@ -60,6 +62,15 @@ func main() {
 
 // bot setup once the bot is created.
 func botInit(s *discordgo.Session, m *discordgo.MessageCreate) {
+}
+
+func welcomeMessage(s *discordgo.Session, e *discordgo.GuildMemberAdd) {
+	newMember := e.User.ID
+
+	channelarr, _ := s.GuildChannels(e.GuildID)
+	channelID := channelarr[0].ID
+	welcomeMessageString := "Hi " + newMember
+	_, _ = s.ChannelMessageSend(channelID, welcomeMessageString)
 }
 
 // This function will be called (due to AddHandler above) every time a new
