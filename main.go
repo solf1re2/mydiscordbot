@@ -95,7 +95,10 @@ func commandHandler(s *discordgo.Session, m *discordgo.MessageCreate) {
 	}
 
 	// echo user
-	_, _ = s.ChannelMessageSend(m.ChannelID, m.Content)
+	// _, _ = s.ChannelMessageSend(m.ChannelID, m.Content)
+	// call a basic handler
+	messageCreate(s, m)
+
 	//log.Println(m.Author)
 	//log.Println(m.ChannelID)
 	//log.Println(m.Message)
@@ -106,6 +109,7 @@ func commandHandler(s *discordgo.Session, m *discordgo.MessageCreate) {
 // message is created on any channel that the autenticated bot has access to.
 func messageCreate(s *discordgo.Session, m *discordgo.MessageCreate) {
 
+	log.Println("messageCreate: ")
 	// Ignore all messages created by the bot itself
 	if m.Author.ID == BotID {
 		return
@@ -120,4 +124,8 @@ func messageCreate(s *discordgo.Session, m *discordgo.MessageCreate) {
 	if m.Content == "pong" {
 		_, _ = s.ChannelMessageSend(m.ChannelID, "Ping!")
 	}
+	if m.Content == "!eff" {
+		_, _ = s.ChannelMessageSend(m.ChannelID, "Effect of what?")
+	}
+
 }
